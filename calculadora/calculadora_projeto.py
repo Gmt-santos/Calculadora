@@ -37,7 +37,7 @@ class main(QWidget):
         self.button_sub=QPushButton()
         self.button_sub.setText("-")
         self.button_sub.setStyleSheet(design_button)
-        self.button_sub.clicked.connect(self.verificar_operacao_ativa(self.inicio_sub,self.fim_sub))
+        # self.button_sub.clicked.connect(self.verificar_operacao_ativa(self.inicio_sub,self.fim_sub))
 
         self.button_x=QPushButton()
         self.button_x.setText("x")
@@ -202,11 +202,13 @@ class main(QWidget):
                     _lista_dps_sinal=self.empacotar_lista_numeros_dps_sinal(_text)
                     _lista_entre_sinal=self.empacotar_lista_numeros_entre_sinais(_text)
                     _resultado=float(self.desempacotar_lista(_lista_dps_sinal)) * float(self.desempacotar_lista(self.empacotar_lista_numeros_entre_sinais(_text)))
+                    _resultado=round(_resultado,3)
                     self.historico_espaco.setText(self.desempacotar_lista(_lista_dps_sinal)+"x"+self.desempacotar_lista(_lista_entre_sinal)+"="+str(_resultado))
                     self.campo_atual_espaco.setText(str(_resultado))
                 else:
                     _lista=self.empacotar_lista_numeros(_text)
                     _resultado=float(self.campo_atual_espaco.text())*float("".join(_lista))
+                    _resultado=round(_resultado,3)
                     self.historico_espaco.setText("".join(_lista)+"x"+self.campo_atual_espaco.text()+"=" + str(_resultado))
                     self.campo_atual_espaco.setText(str(_resultado))
 
@@ -216,11 +218,13 @@ class main(QWidget):
                     _lista_dps_sinal=self.empacotar_lista_numeros_dps_sinal(_text)
                     _lista_entre_sinal=self.empacotar_lista_numeros_entre_sinais(_text)
                     _resultado=float(self.desempacotar_lista(_lista_dps_sinal)) / float(self.desempacotar_lista(self.empacotar_lista_numeros_entre_sinais(_text)))
+                    _resultado=round(_resultado,3)
                     self.historico_espaco.setText(self.desempacotar_lista(_lista_dps_sinal)+"÷"+self.desempacotar_lista(_lista_entre_sinal)+"="+str(_resultado))
                     self.campo_atual_espaco.setText(str(_resultado))
                 else:
                     _lista=self.empacotar_lista_numeros(_text)
                     _resultado=float("".join(_lista))/float(self.campo_atual_espaco.text())
+                    _resultado=round(_resultado,3)
                     self.historico_espaco.setText("".join(_lista)+"÷"+self.campo_atual_espaco.text()+"=" + str(_resultado))
                 self.button_eq.clicked.disconnect(self.verificar_operacao_especifica)
                 self.campo_atual_espaco.setText(str(_resultado))
@@ -254,7 +258,6 @@ class main(QWidget):
             self.button_add.clicked.disconnect(self.fim_adicao)
             self.button_add.clicked.connect(self.verificar_operacao_ativa(self.inicio_adicao,self.fim_adicao))
         else:
-            
             self.historico_espaco.setText(self.campo_atual_espaco.text()+"+")
 
 
@@ -291,11 +294,11 @@ class main(QWidget):
         
     def fim_x(self):
         self.lista_campo_atual=[]
-        if "=" not in self.historico_espaco.text():
-            
+        if "=" not in self.historico_espaco.text(): 
             self.lista_historico_espaco=self.empacotar_lista_numeros(self.historico_espaco.text())
             self.lista_historico_espaco="".join(self.lista_historico_espaco)
             _resultado=float(self.lista_historico_espaco) * float(self.campo_atual_espaco.text())
+            _resultado=round(_resultado,3)
             _resultado = str(_resultado)
             self.historico_espaco.setText(_resultado+"x")
             self.button_x.clicked.disconnect(self.fim_x)
@@ -317,6 +320,7 @@ class main(QWidget):
             self.lista_historico_espaco=self.empacotar_lista_numeros(self.historico_espaco.text())
             self.lista_historico_espaco="".join(self.lista_historico_espaco)
             _resultado=float(self.lista_historico_espaco) / float(self.campo_atual_espaco.text())
+            _resultado=round(_resultado,3)
             _resultado = str(_resultado)
             self.historico_espaco.setText(_resultado+"÷")
             self.button_div.clicked.disconnect(self.inicio_div)
@@ -412,7 +416,7 @@ class main(QWidget):
     Teclas pressionadas def
     '''
     def keyPressEvent(self,event:QKeyEvent):
-        print(event.__repr__())
+      
         if str(event.text()) in "1234567890":
             self.lista_campo_atual.append(event.text())
             self.campo_atual_espaco.setText(self.desempacotar_lista(self.lista_campo_atual))
@@ -436,6 +440,8 @@ class main(QWidget):
                 self.inicio_sub()
             else:
                 self.fim_sub()
+
+            
             
                  
 
@@ -460,7 +466,6 @@ window.setWindowIcon(icone)
 window.setWindowTitle("Calculadora")
 window.show()
 app.exec()
-
 
 
 
