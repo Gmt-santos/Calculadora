@@ -292,7 +292,7 @@ class main(QWidget):
     def fim_x(self):
         self.lista_campo_atual=[]
         if "=" not in self.historico_espaco.text():
-            print("passei")
+            
             self.lista_historico_espaco=self.empacotar_lista_numeros(self.historico_espaco.text())
             self.lista_historico_espaco="".join(self.lista_historico_espaco)
             _resultado=float(self.lista_historico_espaco) * float(self.campo_atual_espaco.text())
@@ -460,6 +460,7 @@ window.setWindowIcon(icone)
 window.setWindowTitle("Calculadora")
 window.show()
 app.exec()
+
 
 
 
